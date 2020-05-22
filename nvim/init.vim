@@ -27,7 +27,7 @@ set updatetime=500
 autocmd vimenter * colorscheme gruvbox
 
 " key bindings
-nnoremap <silent> ,<space> :nohlsearch<CR>
-nnoremap ,, :Files<CR>
-nnoremap ,. :GFiles<CR>
-nnoremap ,/ :Rg<CR>
+nnoremap <silent> <A-space> :nohlsearch<CR>
+nnoremap <A-,> :Files<CR>
+nnoremap <A-.> :GFiles<CR>
+nnoremap <A-/> :Rg<CR>
