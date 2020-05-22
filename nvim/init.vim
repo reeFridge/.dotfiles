@@ -28,6 +28,7 @@ autocmd vimenter * colorscheme gruvbox
 
 " key bindings
 nnoremap <silent> <A-space> :nohlsearch<CR>
+nnoremap <A-b> :Buffers<CR>
 nnoremap <A-,> :Files<CR>
 nnoremap <A-.> :GFiles<CR>
 nnoremap <A-/> :Rg<CR>
