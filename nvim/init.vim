@@ -32,3 +32,4 @@ nnoremap <A-b> :Buffers<CR>
 nnoremap <A-,> :Files<CR>
 nnoremap <A-.> :GFiles<CR>
 nnoremap <A-/> :Rg<CR>
+inoremap <A-j> <Esc>
