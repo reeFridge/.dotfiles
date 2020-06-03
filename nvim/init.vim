@@ -33,3 +33,6 @@ nnoremap <A-,> :Files<CR>
 nnoremap <A-.> :GFiles<CR>
 nnoremap <A-/> :Rg<CR>
 inoremap <A-j> <Esc>
+vnoremap <A-j> <Esc>
+nnoremap <A-j> <Esc>
+nnoremap <A-w> :w<CR>
