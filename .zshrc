@@ -71,6 +71,13 @@ ZSH_THEME="fishy2"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
+# Turn off all beeps
+unsetopt BEEP
+# Turn off autocomplete beeps
+# unsetopt LIST_BEEP
+
+DISABLE_MAGIC_FUNCTIONS=true
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
