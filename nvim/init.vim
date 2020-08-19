@@ -4,6 +4,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 	Plug 'morhetz/gruvbox'
 	Plug 'pangloss/vim-javascript'
 	Plug 'airblade/vim-gitgutter'
+	Plug 'itchyny/lightline.vim'
 	Plug 'hdima/python-syntax'
 call plug#end()
 
@@ -27,8 +28,12 @@ let g:rainbow_active = 1
 let g:gruvbox_contrast_dark = 'soft'
 let g:netrw_banner = 0
 let g:python_highlight_all = 1
+let g:lightline = {
+			\ 'colorscheme': 'wombat',
+			\ }
 
 filetype plugin on
+set noshowmode
 set cursorline
 set termguicolors
 set clipboard+=unnamedplus
@@ -39,7 +44,7 @@ set incsearch ignorecase smartcase hlsearch
 set number
 set title
 set updatetime=500
-autocmd vimenter * colorscheme gruvbox
+colorscheme gruvbox
 
 " key bindings
 nnoremap <silent> <A-space> :nohlsearch<CR>
@@ -54,3 +59,4 @@ inoremap <A-j> <Esc>
 vnoremap <A-j> <Esc>
 nnoremap <A-j> <Esc>
 nnoremap <A-w> :w<CR>
+nnoremap <A-i> i<CR><Esc>O
