@@ -6,6 +6,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 	Plug 'airblade/vim-gitgutter'
 	Plug 'itchyny/lightline.vim'
 	Plug 'hdima/python-syntax'
+	Plug 'dense-analysis/ale'
 call plug#end()
 
 function! s:ExecuteInShell(command)
@@ -23,6 +24,7 @@ function! s:ExecuteInShell(command)
 endfunction
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
 
+let g:ale_javascript_eslint_executable = 'npx eslint'
 let g:javascript_plugin_jsdoc = 1
 let g:rainbow_active = 1
 let g:gruvbox_contrast_dark = 'soft'
