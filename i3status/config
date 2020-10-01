@@ -21,6 +21,7 @@ order += "battery all"
 order += "disk /home"
 order += "load"
 order += "memory"
+order += "volume master"
 order += "tztime local"
 order += "wireless _first_"
 
@@ -54,4 +55,10 @@ memory {
 
 tztime local {
         format = "[ %H:%M:%S :: %Y-%m-%d :: %A ]"
+}
+
+volume master {
+	format = "vol [ %volume ]"
+	format_muted = "vol [ X ]"
+	device = "pulse"
 }

@@ -1,19 +1,16 @@
 call plug#begin(expand('~/.config/nvim/plugged'))
-	Plug 'airblade/vim-gitgutter'
-	Plug 'nvim-lua/diagnostic-nvim'
 	Plug 'jeffkreeftmeijer/vim-numbertoggle'
 	Plug 'machakann/vim-highlightedyank'
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'junegunn/fzf.vim'
-	Plug 'lifepillar/vim-gruvbox8'
-	Plug 'habamax/vim-gruvbit'
+	Plug 'morhetz/gruvbox'
+	Plug 'airblade/vim-gitgutter'
 	Plug 'itchyny/lightline.vim'
 	Plug 'vimwiki/vimwiki'
 	Plug 'tommcdo/vim-exchange'
 	Plug 'justinmk/vim-dirvish'
 	Plug 'takac/vim-hardtime'
 	Plug 'neovim/nvim-lspconfig'
-	Plug 'nvim-treesitter/nvim-treesitter'
 call plug#end()
 
 " dirvish
@@ -23,18 +20,16 @@ command! -nargs=? -complete=dir Explore Dirvish <args>
 command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
 command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
 
-"fzf
-let g:fzf_layout = {'down': '40%',}
-
 " hardtime
 let g:hardtime_default_on = 1
 let g:hardtime_maxcount = 2
 let g:hardtime_allow_different_key = 1
 
 " lightline
-let g:lightline = {'colorscheme': 'gruvbit',}
+let g:lightline = {'colorscheme': 'wombat',}
 
 " other
+let g:gruvbox_contrast_dark = 'soft'
 let g:netrw_banner = 0
 
 " Use persistent history.
@@ -45,11 +40,9 @@ set undodir=/tmp/.vim-undo-dir
 set undofile
 
 filetype plugin on
-set termguicolors
-set background=dark
-colorscheme gruvbox8_soft
 set noshowmode
 set cursorline
+set termguicolors
 set clipboard+=unnamedplus
 set shiftwidth=4
 set modeline
@@ -61,27 +54,14 @@ set number relativenumber
 " absolute line number on
 " set number
 set title
-set list
 set updatetime=500
+colorscheme gruvbox
 nohlsearch
 
 " lsp
 lua << EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "all",     -- one of "all", "language", or a list of languages
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-	disable = {"typescript"},
-  },
-}
-local lsp = require('nvim_lsp')
-local diagnostic = require('diagnostic')
-
-local on_attach = function(client)
-	diagnostic.on_attach(client);
-end
-lsp.tsserver.setup{on_attach=on_attach}
-lsp.vimls.setup{on_attach=on_attach}
+require'nvim_lsp'.rome.setup{}
+require'nvim_lsp'.vimls.setup{}
 EOF
 
 " key bindings
@@ -99,8 +79,3 @@ nnoremap <A-j> <Esc>
 tnoremap <A-j> <C-\><C-N>
 nnoremap <A-w> :w<CR>
 nnoremap <A-i> i<CR><Esc>O
-nnoremap <A-d> :lua vim.lsp.util.show_line_diagnostics()<CR>
-nnoremap <A-h> :PrevDiagnosticCycle<CR>
-nnoremap <A-l> :NextDiagnosticCycle<CR>
-nnoremap <A-D> :OpenDiagnostic<CR>
-nnoremap <A--> :Dirvish %<CR>
