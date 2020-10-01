@@ -1,4 +1,5 @@
 call plug#begin(expand('~/.config/nvim/plugged'))
+	Plug 'norcalli/nvim-colorizer.lua'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'nvim-lua/diagnostic-nvim'
 	Plug 'jeffkreeftmeijer/vim-numbertoggle'
@@ -22,6 +23,9 @@ let g:loaded_netrwPlugin = 1
 command! -nargs=? -complete=dir Explore Dirvish <args>
 command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
 command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
+
+" diagnostic
+let g:diagnostic_insert_delay = 1
 
 "fzf
 let g:fzf_layout = {'down': '40%',}
@@ -76,12 +80,14 @@ require'nvim-treesitter.configs'.setup {
 }
 local lsp = require('nvim_lsp')
 local diagnostic = require('diagnostic')
+local colorizer = require('colorizer')
 
 local on_attach = function(client)
 	diagnostic.on_attach(client);
 end
 lsp.tsserver.setup{on_attach=on_attach}
 lsp.vimls.setup{on_attach=on_attach}
+colorizer.setup()
 EOF
 
 " key bindings
