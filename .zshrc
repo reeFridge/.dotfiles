@@ -78,6 +78,7 @@ unsetopt BEEP
 # unsetopt LIST_BEEP
 
 DISABLE_MAGIC_FUNCTIONS=true
+setopt EXTENDED_GLOB
 
 source $ZSH/oh-my-zsh.sh
 
