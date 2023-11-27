@@ -1,6 +1,8 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=$HOME/.npm-global/bin:$PATH
+export PATH=$HOME/.config/emacs/bin:$HOME/.npm-global/bin:$HOME/thirdparty/bin:$HOME/thirdparty/webos/CLI/bin:$HOME/.local/bin:$PATH
+export IDF_PATH=$HOME/thirdparty/esp/ESP8266_RTOS_SDK
+
+export NNN_OPTS="HA"
+export NNN_ARCHIVE="\\.(7z|bz2|gz|tar|tgz|zip|pk4)$"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/fridge/.oh-my-zsh"
@@ -111,3 +113,5 @@ export EDITOR='nvim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias icat="kitty +kitten icat"
+alias addyu="ssh-add -s /usr/lib/opensc-pkcs11.so"
+alias get_lx106='export PATH="$PATH:$HOME/thirdparty/esp/xtensa-lx106-elf/bin"'

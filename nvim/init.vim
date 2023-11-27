@@ -1,4 +1,7 @@
 call plug#begin(expand('~/.config/nvim/plugged'))
+	Plug 'dcampos/nvim-snippy'
+	Plug 'nvim-lua/plenary.nvim'
+	Plug 'kalvinpearce/ShaderHighlight'
 	Plug 'preservim/tagbar'
 	Plug 'editorconfig/editorconfig-vim'
 	Plug 'tpope/vim-fugitive'
@@ -87,6 +90,8 @@ set list
 set updatetime=500
 nohlsearch
 
+set fileencodings=utf-8,cp1251,cp866,koi8-r
+
 " lsp
 lua << EOF
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -105,14 +110,20 @@ require'nvim-treesitter.configs'.setup {
 local lsp = require('lspconfig')
 local colorizer = require('colorizer')
 
-lsp.tsserver.setup{}
-lsp.vimls.setup{}
+require('lspconfig/quick_lint_js').setup {}
+-- lsp.tsserver.setup{}
+-- lsp.vimls.setup{}
 lsp.clangd.setup{}
+-- lsp.eslint.setup()
 colorizer.setup()
 EOF
 
 " commands
-command! -bang -nargs=* Rgx call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, fzf#vim#with_preview(), <bang>0)
+" command! -bang -nargs=* Rgx call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=* Rgx
+  \ call fzf#vim#grep(
+  \   'git grep --line-number -- '.fzf#shellescape(<q-args>),
+  \   fzf#vim#with_preview({'dir': 'www'}), <bang>0)
 
 " key bindings
 nnoremap <silent> <A-space> :nohlsearch<CR>
@@ -121,18 +132,14 @@ nnoremap <A-,> :Files<CR>
 nnoremap <A-.> :GFiles<CR>
 nnoremap <A-/> :Rg<CR>
 nnoremap <A-w> :w<CR>
-nnoremap <A-j> <Esc>
-vnoremap <A-j> <Esc>
 inoremap <A-j> <Esc>
 vnoremap <A-j> <Esc>
 nnoremap <A-j> <Esc>
 tnoremap <A-j> <C-\><C-N>
-nnoremap <A-w> :w<CR>
 nnoremap <A-i> i<CR><Esc>O
-nnoremap <A-d> :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-nnoremap <A-h> :lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <A-l> :lua vim.lsp.diagnostic.goto_next()<CR>
-nnoremap <A-D> :lua vim.lsp.diagnostic.set_loclist()<CR>
+nnoremap <A-d> :lua vim.diagnostic.open_float({scope="line"})<CR>
+nnoremap <A-h> :lua vim.diagnostic.goto_prev()<CR>
+nnoremap <A-l> :lua vim.diagnostic.goto_next()<CR>
 nnoremap gd    :lua vim.lsp.buf.declaration()<CR>
 nnoremap gD    :lua vim.lsp.buf.implementation()<CR>
 nnoremap tg    :lua vim.lsp.buf.definition()<CR>
@@ -143,3 +150,9 @@ nnoremap g0    :lua vim.lsp.buf.document_symbol()<CR>
 nnoremap gr    :lua vim.lsp.buf.references()<CR>
 nnoremap <A--> :Dirvish %<CR>
 nnoremap <F8>  :TagbarToggle<CR>
+
+imap <expr> <Tab> snippy#can_expand_or_advance() ? '<Plug>(snippy-expand-or-advance)' : '<Tab>'
+imap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
+smap <expr> <Tab> snippy#can_jump(1) ? '<Plug>(snippy-next)' : '<Tab>'
+smap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
+xmap <Tab> <Plug>(snippy-cut-text)
